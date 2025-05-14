@@ -1,6 +1,7 @@
 class Pet:
-    pass
-
+    def speak(self):
+        print("sound made")
+    
 class Dog:
     pass
 
