@@ -22,8 +22,14 @@ class Pet:
     age = property(get_age, set_age)
 
     def speak(self):
-        # print("sound made")
+        print("sound made")
         return ("pet spoke")
+
+    def describe(self):
+        if self._age:
+            return f"{self._name} is {self._age} years old."
+        else:
+            return f"{self._name}'s age is unknown."
 
 
 #A simple class to represent a dog with modified __init__   
@@ -38,9 +44,24 @@ class Dog:
 
     def speak(self):
         return f"{self.name} says woof! woof!"
+
+#Cat is a subclass of Pet(inheritance)   
+class Cat(Pet):
     
-class Cat:
-    pass
+    def __init__(self, name, owner, age=None):
+
+        #call parent's or superclass' initialiser method (inheritance)
+        super().__init__(name, age)
+        self._owner = owner
+
+    def get_owner(self):
+        return self._owner
+    
+    def set_owner(self, owner):
+        self._owner = owner
+
+    owner = property(get_owner, set_owner)
+
 
 class Rat:
     pass
@@ -66,3 +87,7 @@ print(koba.name)
 print(f"Pet's age: {Rasmus.age}")
 Rasmus.age = 5
 print(f"Pet's new age: {Rasmus.age}")
+
+#demonstrating inheritance
+whiskers = Cat("Whiskers", "Juanita", 6)
+print(whiskers.describe())
