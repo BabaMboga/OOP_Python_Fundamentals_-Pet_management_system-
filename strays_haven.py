@@ -33,17 +33,19 @@ class Pet:
 
 
 #A simple class to represent a dog with modified __init__   
-class Dog:
+class Dog(Pet):
 
     species = "canis lupus familiaris" # class attribute
 
     def __init__(self,name,breed,age="N/A"):
-        self.name = name # instance attribute
+        super().__init__(name, age)
+        # instance attribute
         self.breed = breed
-        self.age = age
+        
 
+    # override parent's speak method
     def speak(self):
-        return f"{self.name} says woof! woof!"
+        return f"{self._name} says woof! woof!"
 
 #Cat is a subclass of Pet(inheritance)   
 class Cat(Pet):
@@ -54,6 +56,9 @@ class Cat(Pet):
         super().__init__(name, age)
         self._owner = owner
 
+    def speak(self):
+        return f"{self._name} meows!"
+
     def get_owner(self):
         return self._owner
     
@@ -63,31 +68,48 @@ class Cat(Pet):
     owner = property(get_owner, set_owner)
 
 
-class Rat:
-    pass
+class Rat(Pet):
+    species = "rattus norvegicus"
 
-Rasmus = Pet("Scooby")
-Rasmus.name = "Rasmus"
-print(Rasmus.name)
-print(Rasmus.speak())
+    def __init__(self,name, owner, age=False):
+
+        super().__init__(name, age)
+        self._owner = owner
+    
+    #overriding parents speak method
+
+    def speak(self):
+        return f"{self._name} squeals!"
+
+rasmus = Pet("Scooby")
+rasmus.name = "Rasmus"
+print(rasmus.name)
+print(rasmus.speak())
 
 koba = Dog("Koba","Great Dane", 3)
 amad = Dog("amad", "Black Goat") # works because we intialised age with a default value
 koba.age = 4
 print(koba.speak())
-print(koba.age)
-print(amad.age)
+print(koba._age)
+print(amad._age)
 print(amad.species)
-print(amad.name)
+print(amad._name)
 
 print(koba.species)
-print(koba.name)
+print(koba._name)
 
 #demonstrating encapsulation 
-print(f"Pet's age: {Rasmus.age}")
-Rasmus.age = 5
-print(f"Pet's new age: {Rasmus.age}")
+print(f"Pet's age: {rasmus.age}")
+rasmus.age = 5
+print(f"Pet's new age: {rasmus.age}")
 
 #demonstrating inheritance
 whiskers = Cat("Whiskers", "Juanita", 6)
 print(whiskers.describe())
+
+#demonstrating polymorphism
+jerry = Rat("Jerry", "Abdirahman Ali", 4)
+print(rasmus.speak())
+print(koba.speak())
+print(whiskers.speak())
+print(jerry.speak())
