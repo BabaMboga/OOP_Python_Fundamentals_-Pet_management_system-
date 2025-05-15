@@ -1,13 +1,30 @@
 #Class initialisation with default __init__
 class Pet:
+
+    #This is the Parent & base class for all pets
+    def __init__(self, name, age=None):
+        #Protected attributes(encapsulation)
+        self._name = name
+        self._age = age
+
+    # Getter and setter methods for encapsulation
+    def get_age(self):
+        print ("Retrieving age")
+        return self._age
+    
+    def set_age(self, age):
+        if type(age) in (int, float) and (age >= 0 and age <=120):
+            self._age = age
+        else:
+            print("Age must be greater than 0 or less than 120")
+
+    # encapsulated age property
+    age = property(get_age, set_age)
+
     def speak(self):
         # print("sound made")
         return ("pet spoke")
 
-Rasmus = Pet()
-Rasmus.name = "Rasmus"
-print(Rasmus.name)
-print(Rasmus.speak())
 
 #A simple class to represent a dog with modified __init__   
 class Dog:
@@ -22,6 +39,17 @@ class Dog:
     def speak(self):
         return f"{self.name} says woof! woof!"
     
+class Cat:
+    pass
+
+class Rat:
+    pass
+
+Rasmus = Pet("Scooby")
+Rasmus.name = "Rasmus"
+print(Rasmus.name)
+print(Rasmus.speak())
+
 koba = Dog("Koba","Great Dane", 3)
 amad = Dog("amad", "Black Goat") # works because we intialised age with a default value
 koba.age = 4
@@ -34,9 +62,7 @@ print(amad.name)
 print(koba.species)
 print(koba.name)
 
-
-class Cat:
-    pass
-
-class Rat:
-    pass
+#demonstrating encapsulation 
+print(f"Pet's age: {Rasmus.age}")
+Rasmus.age = 5
+print(f"Pet's new age: {Rasmus.age}")
